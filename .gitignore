@@ -1,0 +1,28 @@
+# Build directories
+obj/
+bin/
+
+# Compilation database
+compile_commands.json
+
+# Backup files
+*~
+*.bak
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.cache/
+.clang-format
+
+# Logs
+*.log
+
+

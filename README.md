@@ -1,5 +1,5 @@
-# Traffic Lights
+# CHIP-8
 
-Simple traffic lights project written in C
+CHIP-8 emulator written in C.
 
 

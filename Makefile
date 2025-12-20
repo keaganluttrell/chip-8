@@ -55,6 +55,9 @@ clean:
 format:
 	clang-format -i $(SRCS) $(INCLUDE_SRCS)
 
+bear:
+	bear -- make all
+
 # Lint
 lint:
 	@if [ ! -f compile_commands.json ]; then \

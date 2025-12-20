@@ -1,18 +1,13 @@
 #include "instructions.h"
 #include <stdio.h>
 
-const PrimaryFn primary_jump_table[INSTRUCTION_SIZE] = {
-    [0x6] = op_6xkk,
-    [0xA] = op_Annn,
-    [0xD] = op_Dxyn,
-    [0x8] = op_8xxx,
-
+const TableFn primary_table[INSTRUCTION_SIZE] = {
+    op_0xxx, op_1nnn, op_2nnn, op_3xkk, op_4xkk, op_5xy0, op_6xkk, op_7xkk,
+    op_8xxx, op_9xy0, op_Annn, op_Bnnn, op_Cxkk, op_Dxyn, op_Exxx, op_Fxxx,
 };
 
-const SecondaryFn secondary_jump_table[INSTRUCTION_SIZE] = {
-    [0x4] = op_8xy4,
-    [0x5] = op_8xy5,
-    [0x7] = op_8xy7,
+const TableFn secondary_table_8[INSTRUCTION_SIZE] = {
+    op_8xy0, op_8xy1, op_8xy2, op_8xy3, op_8xy4, op_8xy5, op_8xy6, op_8xy7, [14] = op_8xyE,
 };
 
 /* PRIMARY FUNCTIONS */
@@ -53,12 +48,12 @@ void op_6xkk(Chip8 *c8, uint16_t opcode) {
 
 void op_8xxx(Chip8 *c8, uint16_t opcode) {
   uint8_t sub_index = opcode & 0x000F;
-  if (secondary_jump_table[sub_index] != NULL) {
-    secondary_jump_table[sub_index](c8, opcode);
+  if (secondary_table_8[sub_index] != NULL) {
+    secondary_table_8[sub_index](c8, opcode);
   }
 }
 
-/* SECONDARY FUNCTIONS */
+/* SECONDARY TABLE 8 FUNCTIONS */
 void op_8xy4(Chip8 *c8, uint16_t opcode) {
   uint8_t x = (opcode & 0x0F00) >> 8;
   uint8_t y = (opcode & 0x00F0) >> 4;

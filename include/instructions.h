@@ -8,7 +8,7 @@ typedef void (*TableFn)(Chip8 *c8, uint16_t opcode);
 extern const TableFn primary_table[INSTRUCTION_SIZE];
 extern const TableFn secondary_table_8[INSTRUCTION_SIZE];
 
-/* Primart Table Dispatchers */
+/* Primary Table Dispatchers */
 void op_0xxx(Chip8 *c8, uint16_t opcode);
 void op_1nnn(Chip8 *c8, uint16_t opcode);
 void op_2nnn(Chip8 *c8, uint16_t opcode);
@@ -38,8 +38,8 @@ void op_8xy7(Chip8 *c8, uint16_t opcode);
 void op_8xyE(Chip8 *c8, uint16_t opcode);
 
 /* Secondary Functions */
-void op_00E0(Chip8 *c8, uint16_t opcode);
-void op_00EE(Chip8 *c8, uint16_t opcode);
+void op_00E0(Chip8 *c8);
+void op_00EE(Chip8 *c8);
 
 void op_Ex9E(Chip8 *c8, uint16_t opcode);
 void op_ExA1(Chip8 *c8, uint16_t opcode);

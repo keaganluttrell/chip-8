@@ -2,6 +2,7 @@
 #include "instructions.h"
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 const uint8_t fontset[FONT_SET_LEN] = {
     0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
@@ -68,31 +69,9 @@ uint8_t chip8_init(Chip8 *c8) {
     return FN_ERROR;
   }
 
-  for (uint16_t i = 0; i < MEMORY; i++) {
-    c8->memory[i] = 0;
-  }
-
-  for (uint8_t j = 0; j < REGISTER_LEN; j++) {
-    c8->V[j] = 0;
-  }
-
-  for (uint8_t k = 0; k < STACK_LEN; k++) {
-    c8->stack[k] = 0;
-  }
-
-  for (int l = 0; l < RESOLUTION; l++) {
-    c8->display[l] = 0;
-  }
-
-  c8->stack_pointer = 0;
-  c8->delay_counter = 0;
-  c8->sound_counter = 0;
-  c8->pc = 512;
-  c8->I = 0;
-
-  uint8_t load_code = chip8_load_font(c8);
-
-  if (load_code != FN_SUCCESS) {
+  memset(c8, 0, sizeof(Chip8));
+  c8->pc = ROM_START;
+  if (chip8_load_font(c8) != FN_SUCCESS) {
     return FN_ERROR;
   }
 
@@ -104,10 +83,11 @@ void chip8_execute(Chip8 *c8) {
   c8->pc += 2;
   uint8_t fn_idx = (opcode & 0xF000) >> 12;
 
-  if (primary_jump_table[fn_idx] != NULL) {
-    primary_jump_table[fn_idx](c8, opcode);
+  if (primary_table[fn_idx] != NULL) {
+    primary_table[fn_idx](c8, opcode);
   }
 }
+
 void chip8_render(Chip8 *c8) {
   printf("\033[H");
 

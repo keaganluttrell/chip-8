@@ -5,6 +5,7 @@
 #define REGISTER_LEN 16
 #define STACK_LEN 16
 #define RESOLUTION 64 * 32
+#define KEYPAD_LEN 16
 #define ROM_START 512
 #define ROM_LEN (MEMORY - ROM_START)
 #define FONT_SET_LEN 80
@@ -22,6 +23,7 @@ typedef struct Chip8 {
   uint16_t pc;
   uint16_t stack[REGISTER_LEN];
   char display[RESOLUTION];
+  uint8_t keypad[KEYPAD_LEN];
 } Chip8;
 
 uint8_t chip8_load_font(Chip8 *c8);

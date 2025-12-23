@@ -1,10 +1,11 @@
+ROM ?= rom/ibm.ch8
 MAIN = main
 TARGET = bin/$(MAIN)
 
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Iinclude
-LDFLAGS =
+CFLAGS = -Wall -Wextra -Iinclude $(shell sdl2-config --cflags)
+LDFLAGS = $(shell sdl2-config --libs)
 
 # Directories
 SRC_DIR = src
@@ -44,7 +45,7 @@ $(TARGET): $(OBJ_FILES) | $(BIN_DIR)
 
 # Run program
 run: $(TARGET)
-	./$(TARGET)
+	./$(TARGET) $(ROM)
 
 # Clean build files
 clean:

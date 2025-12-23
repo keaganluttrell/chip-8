@@ -52,6 +52,7 @@ uint8_t chip8_load_rom(Chip8 *c8, char *filename) {
   long file_size = ftell(f_ptr);
   if (file_size > ROM_LEN) {
     printf("File %s is too large\n", filename);
+    fclose(f_ptr);
     return FN_ERROR;
   }
 
@@ -88,19 +89,13 @@ void chip8_execute(Chip8 *c8) {
   }
 }
 
-void chip8_render(Chip8 *c8) {
-  printf("\033[H");
+void chip8_step_timers(Chip8 *c8) {
+  if (c8->delay_counter > 0) {
+    c8->delay_counter--;
+  }
 
-  for (int y = 0; y < 32; y++) {
-    for (int x = 0; x < 64; x++) {
-      uint16_t index = x + (y * 64);
-
-      if (c8->display[index]) {
-        printf("██");
-      } else {
-        printf("  ");
-      }
-    }
-    printf("\n");
+  if (c8->sound_counter > 0) {
+    c8->sound_counter--;
+    // If (c8->sound_counter > 0) { Beep! }
   }
 }

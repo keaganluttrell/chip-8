@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
     chip8_step_timers(&c8);
     if (c8.draw_flag) {
       for (int i = 0; i < RESOLUTION; i++) {
-        pixels[i] = (c8.display[i]) ? 0xFFFFFFFF : 0x000000FF; // White or Black
+        pixels[i] = (c8.display[i]) ? 0xFFFFFFFF : 0x000000FF;
       }
 
       SDL_UpdateTexture(texture, NULL, pixels, 64 * sizeof(uint32_t));

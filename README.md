@@ -8,7 +8,7 @@ make run -s ROM=rom/<filename>
 
 ```
 
-Example
+Example:
 ```sh  
 make run -s ROM=rom/ibm.ch8
 ```

@@ -13,5 +13,3 @@ Example
 make run -s ROM=rom/ibm.ch8
 ```
 
-```
-```
